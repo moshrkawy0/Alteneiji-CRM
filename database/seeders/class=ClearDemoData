@@ -1,0 +1,28 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ClearDemoData extends Seeder
+{
+    public function run()
+    {
+        // أمثلة على الجداول اللي ممكن تمسح بياناتها
+        $tablesToClear = [
+            'products',
+            'orders',
+            'customers',
+            'transactions',
+            'invoices',
+            // أضف هنا أي جدول ثاني يحتوي بيانات ديمو
+        ];
+
+        foreach ($tablesToClear as $table) {
+            DB::table($table)->truncate();
+        }
+
+        $this->command->info('Demo data cleared, admin user remains.');
+    }
+}
