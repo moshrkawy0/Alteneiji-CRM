@@ -2,33 +2,31 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Pages\Dashboard as BaseDashboard;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Get;
-use Filament\Schemas\Schema;
+use Filament\Pages\Page;
+use Filament\Panel;
 
-class Dashboard extends BaseDashboard
+class Dashboard extends Page
 {
-    use BaseDashboard\Concerns\HasFiltersForm;
-
-    public function filtersForm(Schema $schema): Schema
+    protected string $view = 'filament.pages.dashboard';
+    
+    // Hide from navigation menu
+    protected static bool $shouldRegisterNavigation = false;
+    
+    // Make it the home page
+    public static function getRoutePath(Panel $panel): string
     {
-        return $schema
-            ->components([
-                Section::make()
-                    ->schema([
-                        Select::make('businessCustomersOnly')
-                            ->boolean(),
-                        DatePicker::make('startDate')
-                            ->maxDate(fn (Get $get) => $get('endDate') ?: now()),
-                        DatePicker::make('endDate')
-                            ->minDate(fn (Get $get) => $get('startDate') ?: now())
-                            ->maxDate(now()),
-                    ])
-                    ->columns(3)
-                    ->columnSpanFull(),
-            ]);
+        return '';
+    }
+    
+    // Page title
+    public function getHeading(): string
+    {
+        return 'Dashboard';
+    }
+    
+    // Page title tag
+    public function getTitle(): string
+    {
+        return 'Dashboard';
     }
 }

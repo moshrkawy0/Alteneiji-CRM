@@ -25,19 +25,25 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->brandName('Alteneiji CRM') // تم تعديل اسم المشروع هنا
+            ->brandName('Alteneiji CRM')
             ->login(Login::class)
+            
+            // إلغاء الـ Sidebar
+            ->sidebarCollapsibleOnDesktop()
+            ->sidebarFullyCollapsibleOnDesktop()
+            
+            // تفعيل الـ Topbar
+            ->topNavigation()
+            
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                // يجب أن تكون هذه المصفوفة فارغة الآن
-            ])
+            ->widgets([])
             ->unsavedChangesAlerts()
-            ->databaseNotifications()
+            // ->databaseNotifications()  // ← شيلنا السطر ده مؤقتاً
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
